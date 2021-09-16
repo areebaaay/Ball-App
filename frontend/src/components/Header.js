@@ -18,15 +18,15 @@ function ElevationScroll(props) {
   });
 }
 
-// const useStyles = makeStyles((theme) => ({
-//   toolBarMargin: {
-//     ...theme.mixins.toolbar,
-//   },
-// }));
-
 const useStyles = makeStyles((theme) => ({
-  offset: theme.mixins.toolbar,
+  toolBarMargin: {
+    ...theme.mixins.toolbar,
+  },
 }));
+
+// const useStyles = makeStyles((theme) => ({
+//   offset: theme.mixins.toolbar,
+// }));
 
 const Header = () => {
   const classes = useStyles();
@@ -39,8 +39,8 @@ const Header = () => {
           </Toolbar>
         </AppBar>
       </ElevationScroll>
-      {/* <div className={classes.toolBarMargin} /> */}
-      <div className={classes.offset} />
+      <div className={classes.toolBarMargin} />
+      {/* <div className={classes.offset} /> */}
     </>
   );
 };
