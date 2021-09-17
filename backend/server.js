@@ -6,7 +6,8 @@ import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import cors from 'cors';
 import path from 'path';
-import uploadRoutes from './routes/uploadRoute';
+import uploadRoutes from './routes/uploadRoutes.js';
+import ballRoutes from './routes/ballRoutes.js';
 
 dotenv.config();
 
@@ -31,9 +32,11 @@ app.use('*', (req, res, next) => {
 });
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/balls', ballRoutes);
 
 const __dirname = path.resolve(); //since __dirname is not availble in es6 and only in common js so we are mimicing __dirname
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+console.log(path.join(__dirname, '/uploads'));
 //making a folder static would make it accessible in the browser
 
 //MIDDLEWARE

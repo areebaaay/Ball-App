@@ -33,6 +33,6 @@ const ballSchema = mongoose.Schema(
   }
 );
 
-const Balls = mongoose.Model('Ball', ballSchema);
+const Ball = mongoose.model('Ball', ballSchema);
 
-export default Balls;
+export default Ball;
