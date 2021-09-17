@@ -1,12 +1,9 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserProfile } from '../actions/userActions';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {} from 'module';
-import { loginUser } from '../actions/userActions';
-import { Link } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,31 +25,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginScreen = ({ location, history }) => {
+const UpdateProfileScreen = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const dispatch = useDispatch();
-  const redirect = location.search ? location.search.split('=')[1] : '/';
 
   const login = useSelector((state) => state.login);
   const { userInfo } = login;
 
   useEffect(() => {
-    if (userInfo) {
-      history.push(redirect);
-    }
-  }, [history, userInfo, redirect]);
+    setName(userInfo.name);
+    setEmail(userInfo.email);
+  }, [userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(loginUser(email, password));
+
+    if (password !== confirmPassword) {
+      alert('Passwords do not match!!');
+    } else {
+      dispatch(updateUserProfile({ id: userInfo._id, name, email, password }));
+    }
   };
 
   const classes = useStyles();
   return (
     <form className={classes.formContainer} onSubmit={submitHandler}>
-      <Typography variant="h3">Login</Typography>
+      <Typography variant="h4" color="primary">
+        Update Profile
+      </Typography>
+      <TextField
+        label="Name"
+        variant="filled"
+        required
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
       <TextField
         label="Email"
         variant="filled"
@@ -61,32 +72,26 @@ const LoginScreen = ({ location, history }) => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <TextField
-        label="Password"
+        label=" Change Password"
         variant="filled"
         required
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-
-      <div>
-        {/* <Button color="primary" variant="contained"> */}
-        <Link
-          style={{
-            textDecoration: 'none',
-            color: 'primary',
-          }}
-          to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-          Dont have an account? Register
-        </Link>
-        {/* </Button> */}
-      </div>
+      <TextField
+        label="Confirm Password"
+        variant="filled"
+        required
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+      />
       <div>
         <Button type="submit" color="primary" variant="contained">
-          Login
+          Update
         </Button>
       </div>
     </form>
   );
 };
 
-export default LoginScreen;
+export default UpdateProfileScreen;

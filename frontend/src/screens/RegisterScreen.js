@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useState, useEffect } from 'react';
-import { register } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
 
