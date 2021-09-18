@@ -54,7 +54,7 @@ const ownBall = asyncHandler(async (req, res) => {
     ball.inStock = ball.inStock - 1;
 
     const updatedBall = await ball.save();
-    res.json(updatedBall.ownedBy);
+    res.json(updatedBall);
   } else {
     res.status(404);
     throw new Error('Ball not found');
@@ -86,7 +86,7 @@ const returnBall = asyncHandler(async (req, res) => {
 
     const updatedBall = await ball.save();
 
-    res.json(updatedBall.ownedBy);
+    res.json(updatedBall);
   } else {
     res.status(404);
     throw new Error('Ball not found');

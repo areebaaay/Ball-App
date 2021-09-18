@@ -10,9 +10,12 @@ export const HomeScreen = () => {
   const ballList = useSelector((state) => state.ballList);
   const { balls, loading } = ballList;
 
+  const ballBook = useSelector((state) => state.ballBook);
+  const { ball } = ballBook;
+
   useEffect(() => {
     dispatch(listBalls());
-  }, [dispatch]);
+  }, [dispatch, ball]);
 
   return (
     <>

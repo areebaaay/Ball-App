@@ -56,7 +56,7 @@ export const ballListReducer = (state = { balls: [] }, action) => {
   }
 };
 
-export const ballBookReducer = (state = { balls: [] }, action) => {
+export const ballBookReducer = (state = { ball: [] }, action) => {
   switch (action.type) {
     case BALL_ERROR:
       return {
@@ -68,33 +68,14 @@ export const ballBookReducer = (state = { balls: [] }, action) => {
     case BALL_BOOK_SUCCESS: {
       return {
         ...state,
-        balls: state.balls.map((ball) =>
-          ball._id === action.payload.id
-            ? { ...ball, ownedBy: action.payload.ownedBy }
-            : ball
-        ),
-      };
-    }
-
-    case BALL_BOOK_SUCCESS: {
-      return {
-        ...state,
-        balls: state.balls.map((ball) =>
-          ball._id === action.payload.id
-            ? { ...ball, ownedBy: action.payload.ownedBy }
-            : ball
-        ),
+        ball: action.payload,
       };
     }
 
     case BALL_RETURN_SUCCESS: {
       return {
         ...state,
-        balls: state.balls.map((ball) =>
-          ball._id === action.payload.id
-            ? { ...ball, ownedBy: action.payload.ownedBy }
-            : ball
-        ),
+        ball: action.payload,
       };
     }
 
